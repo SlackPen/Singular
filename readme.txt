@@ -14,3 +14,4 @@ git push origin master --efetiva as alterações
 
 git status --verifica mudanças
 
+git log --oneline --graph --decorate --all
