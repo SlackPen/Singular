@@ -1,3 +1,12 @@
+# -*- encoding: utf-8 -*-
+
+#Programa  : desplura.py
+#Finalidade: Este programa recebe uma palavra em portugues, verifica se ela é  um substantivo ou um adjetivo ou um advérbio.
+#            Caso seja uma destas tres classes gramáticais o programa verifica se a palavra está no plural e se estiver 
+#            retorna o singular da mesma.
+#Data      : 2020.01;12
+#Autor     : OmaR
+
 import nltk
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
