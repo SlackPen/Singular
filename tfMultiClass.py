@@ -171,7 +171,7 @@ print(validation_label_seq.shape)
 reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
 
 def decode_article(text):
-    return ' '.join([reverse_word_inde  x.get(i, '?') for i in text])
+    return ' '.join([reverse_word_index.get(i, '?') for i in text])
 print(decode_article(train_padded[10]))
 print('---')
 print(train_articles[10])
@@ -201,11 +201,20 @@ print(set(labels))
 
 
 # In[ ]:
+checkpoint_path = "cp.ckpt"
+checkpoint_dir = os.path.dirname(checkpoint_path)
 
+checkpoint_dir = os.path.dirname(checkpoint_path)
+
+cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, save_weights_only=True, verbose=1)
 
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
 num_epochs = 10
-history = model.fit(train_padded, training_label_seq, epochs=num_epochs, validation_data=(validation_padded, validation_label_seq), verbose=2)
+
+history = model.fit(train_padded, training_label_seq, epochs=num_epochs, 
+                     validation_data=(validation_padded, validation_label_seq), 
+                     verbose=2, callbacks=[cp_callback])
 
 
 # In[2]:
@@ -231,11 +240,5 @@ plot_graphs(history, "acc")
 plot_graphs(history, "loss")
 
 
-# In[ ]:
 
-
-import pickle
-pickle.dump(model, open('MultiClass.pickle', 'wb'))
-
-loaded_model = pickle.load(open('MultiClass.pickle', 'rb'))
 
